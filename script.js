@@ -45,11 +45,7 @@ const Player = function (name, sign) {
         set name(newName) {
             name = newName;
         },
-        board: [
-            ["X", "O", "X"],
-            ["X", "X", "O"],
-            ["O", "X", "O"],
-        ],
+
         get sign() {
             return sign;
         },
