@@ -32,3 +32,31 @@ const gameBoard = (function () {
         resetBoard,
     };
 })();
+
+const Player = function (name, sign) {
+    const placeSign = (x, y) => {
+        gameBoard.placeSign(x, y, sign);
+    };
+
+    return {
+        get name() {
+            return name;
+        },
+        set name(newName) {
+            name = newName;
+        },
+        board: [
+            ["X", "O", "X"],
+            ["X", "X", "O"],
+            ["O", "X", "O"],
+        ],
+        get sign() {
+            return sign;
+        },
+        set sign(newSign) {
+            sign = newSign;
+        },
+
+        placeSign,
+    };
+};
