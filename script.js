@@ -5,6 +5,30 @@ const gameBoard = (function () {
         ["O", "X", "O"],
     ];
 
+    const resetBoard = () => {
+        for (let i = 0; i < board.length; i++) {
+            for (let j = 0; j < board[i].length; j++) {
+                board[i][j] = "";
+                const cell =
+                    document.querySelectorAll(".board-cell")[i * 3 + j];
+                cell.classList.add("emtpy");
+            }
+        }
+    };
+
+    const renderBoard = () => {
+        const gameBoardElement = document.getElementById("game-board");
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                const cell = gameBoardElement.children[i * 3 + j];
+                if (!(board[i][j].trim() === "")) {
+                    cell.querySelector("p").textContent = board[i][j];
+                    cell.classList.remove("empty");
+                }
+            }
+        }
+    };
+
     const placeSign = (x, y, sign) => {
         if (x > 2 || y > 2 || x < 0 || y < 0) {
             console.error("Invalid coordinates");
@@ -17,19 +41,13 @@ const gameBoard = (function () {
         }
 
         board[x][y] = sign;
-    };
-
-    const resetBoard = () => {
-        for (let i = 0; i < board.length; i++) {
-            for (let j = 0; j < board[i].length; j++) {
-                board[i][j] = "";
-            }
-        }
+        renderBoard();
     };
 
     return {
         placeSign,
         resetBoard,
+        renderBoard,
     };
 })();
 
@@ -56,3 +74,5 @@ const Player = function (name, sign) {
         placeSign,
     };
 };
+
+gameBoard.renderBoard();
