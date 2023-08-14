@@ -69,5 +69,5 @@ main > h1 > :last-child {
 }
 
 .board-cell.empty:hover {
-    background-color: #045151;
+    background-color: hsl(180, 91%, 22%);
 }
