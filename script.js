@@ -37,7 +37,6 @@ const gameBoard = (function () {
         }
 
         if (board[x][y]) {
-            console.error("That position is already taken");
             return;
         }
 
