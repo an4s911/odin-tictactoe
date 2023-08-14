@@ -1,23 +1,24 @@
 const gameBoard = (function () {
     const board = [
-        ["X", "O", "X"],
-        ["X", "X", "O"],
-        ["O", "X", "O"],
+        ["", "", ""],
+        ["", "", ""],
+        ["", "", ""],
     ];
+
+    const gameBoardElement = document.getElementById("game-board");
 
     const resetBoard = () => {
         for (let i = 0; i < board.length; i++) {
             for (let j = 0; j < board[i].length; j++) {
                 board[i][j] = "";
                 const cell =
-                    document.querySelectorAll(".board-cell")[i * 3 + j];
+                    gameBoardElement.querySelectorAll(".board-cell")[i * 3 + j];
                 cell.classList.add("emtpy");
             }
         }
     };
 
     const renderBoard = () => {
-        const gameBoardElement = document.getElementById("game-board");
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
                 const cell = gameBoardElement.children[i * 3 + j];
