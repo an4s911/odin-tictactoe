@@ -141,3 +141,24 @@ const gameStatus = (function () {
         placeSign,
     };
 })();
+
+document.querySelectorAll(".board-cell").forEach((cell) => {
+    cell.addEventListener("click", (e) => {
+        let targetElem;
+        if (e.target.tagName === "P") {
+            targetElem = e.target.parentElement;
+        } else {
+            targetElem = e.target;
+        }
+
+        if (!targetElem.classList.contains("empty")) {
+            return;
+        }
+
+        const index = parseInt(targetElem.getAttribute("aria-label"));
+        const x = parseInt((index - 1) / 3);
+        const y = (index - 1) % 3;
+
+        gameStatus.placeSign(x, y);
+    });
+});
