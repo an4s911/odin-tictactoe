@@ -56,8 +56,6 @@ main > h1 > :last-child {
     display: grid;
     place-content: center;
     place-items: center;
-
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .board-cell > p {
