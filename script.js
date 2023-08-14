@@ -119,4 +119,25 @@ const Player = function (name, sign) {
     };
 };
 
-gameBoard.renderBoard();
+const player1 = Player("Player 1", "X");
+const player2 = Player("Player 2", "O");
+
+const gameStatus = (function () {
+    let currentPlayer = player1;
+    const switchPlayer = () => {
+        if (currentPlayer === player1) {
+            currentPlayer = player2;
+        } else {
+            currentPlayer = player1;
+        }
+    };
+
+    const placeSign = (x, y) => {
+        currentPlayer.placeSign(x, y);
+        switchPlayer();
+    };
+
+    return {
+        placeSign,
+    };
+})();
