@@ -41,7 +41,51 @@ const gameBoard = (function () {
         }
 
         board[x][y] = sign;
+
         renderBoard();
+    };
+
+    const checkWin = (sign) => {
+        // Check rows
+        for (let i = 0; i < board.length; i++) {
+            if (
+                board[i][0] === sign &&
+                board[i][1] === sign &&
+                board[i][2] === sign
+            ) {
+                return true;
+            }
+        }
+
+        // Check columns
+        for (let j = 0; j < board[0].length; j++) {
+            if (
+                board[0][j] === sign &&
+                board[1][j] === sign &&
+                board[2][j] === sign
+            ) {
+                return true;
+            }
+        }
+
+        // Check diagonals
+        if (
+            board[0][0] === sign &&
+            board[1][1] === sign &&
+            board[2][2] === sign
+        ) {
+            return true;
+        }
+        if (
+            board[0][2] === sign &&
+            board[1][1] === sign &&
+            board[2][0] === sign
+        ) {
+            return true;
+        }
+
+        // No win condition met
+        return false;
     };
 
     return {
