@@ -7,6 +7,22 @@ const gameBoard = (function () {
 
     const gameBoardElement = document.getElementById("game-board");
 
+    const makeCell = (num, sign) => {
+        const htmlString = `
+            <div class="board-cell ${
+                sign === "" ? "empty" : ""
+            }" id="cell-${num}">
+                <p>${sign}</p>
+            </div>
+        `;
+
+        const tempElement = document.createElement("div");
+        tempElement.innerHTML = htmlString;
+        const cell = tempElement.firstElementChild;
+
+        return cell;
+    };
+
     const resetBoard = () => {
         for (let i = 0; i < board.length; i++) {
             for (let j = 0; j < board[i].length; j++) {
@@ -19,13 +35,12 @@ const gameBoard = (function () {
     };
 
     const renderBoard = () => {
+        gameBoardElement.innerHTML = "";
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
-                const cell = gameBoardElement.children[i * 3 + j];
-                if (!(board[i][j].trim() === "")) {
-                    cell.querySelector("p").textContent = board[i][j];
-                    cell.classList.remove("empty");
-                }
+                const cell = makeCell(i * 3 + j + 1, board[i][j].trim());
+
+                gameBoardElement.appendChild(cell);
             }
         }
     };
@@ -162,3 +177,4 @@ document.querySelectorAll(".board-cell").forEach((cell) => {
         gameStatus.placeSign(x, y);
     });
 });
+
