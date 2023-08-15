@@ -11,7 +11,6 @@
 
 main {
     min-height: 100vh;
-    max-height: 100vh;
     display: grid;
     place-content: center;
     justify-items: center;
@@ -19,6 +18,8 @@ main {
 
     background-color: bisque;
     user-select: none;
+
+    padding: 20px;
 }
 
 main > h1 {
