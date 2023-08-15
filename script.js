@@ -128,12 +128,19 @@ const gameBoard = (function () {
         placeSign,
         renderBoard,
         resetBoard,
+        checkWin,
     };
 })();
 
 const Player = function (name, sign) {
     const placeSign = (x, y) => {
         gameBoard.placeSign(x, y, sign);
+    };
+
+    let score = 0;
+
+    const incrementScore = () => {
+        score++;
     };
 
     return {
@@ -152,6 +159,7 @@ const Player = function (name, sign) {
         },
 
         placeSign,
+        incrementScore,
     };
 };
 
@@ -170,12 +178,24 @@ const gameStatus = (function () {
 
     const placeSign = (x, y) => {
         currentPlayer.placeSign(x, y);
+        checkWinAndIncrement();
         switchPlayer();
     };
 
     const resetGame = () => {
         gameBoard.resetBoard();
         currentPlayer = player1;
+    };
+
+    const checkWinAndIncrement = () => {
+        if (gameBoard.checkWin(currentPlayer.sign)) {
+            currentPlayer.incrementScore();
+            const winningPlayer = currentPlayer;
+            setTimeout(() => {
+                alert(`${winningPlayer.name} wins!`);
+                gameBoard.resetBoard();
+            }, 500);
+        }
     };
 
     return {
