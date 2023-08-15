@@ -90,3 +90,19 @@ main > h1 > :last-child {
         0px 0px 10px 2px rgba(0, 0, 0, 0.6) inset;
     cursor: pointer;
 }
+
+.current-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.current-player > h5 {
+    font-family: initial;
+    font-size: 1em;
+}
+
+.current-player > p {
+    font-size: 1.5em;
+}

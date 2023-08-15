@@ -168,11 +168,22 @@ const player2 = Player("Player 2", "O");
 
 const gameStatus = (function () {
     let currentPlayer = player1;
+
+    const setCurrentPlayer = (player) => {
+        currentPlayer = player;
+
+        const currentPlayerElement = document.querySelector(
+            ".current-player > p"
+        );
+
+        currentPlayerElement.textContent = currentPlayer.name;
+    };
+
     const switchPlayer = () => {
         if (currentPlayer === player1) {
-            currentPlayer = player2;
+            setCurrentPlayer(player2);
         } else {
-            currentPlayer = player1;
+            setCurrentPlayer(player1);
         }
     };
 
@@ -184,7 +195,7 @@ const gameStatus = (function () {
 
     const resetGame = () => {
         gameBoard.resetBoard();
-        currentPlayer = player1;
+        setCurrentPlayer(player1);
     };
 
     const checkWinAndIncrement = () => {
