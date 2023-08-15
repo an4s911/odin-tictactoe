@@ -50,11 +50,9 @@ const gameBoard = (function () {
         for (let i = 0; i < board.length; i++) {
             for (let j = 0; j < board[i].length; j++) {
                 board[i][j] = "";
-                const cell =
-                    gameBoardElement.querySelectorAll(".board-cell")[i * 3 + j];
-                cell.classList.add("emtpy");
             }
         }
+        renderBoard();
     };
 
     const renderBoard = () => {
@@ -128,8 +126,8 @@ const gameBoard = (function () {
 
     return {
         placeSign,
-        resetBoard,
         renderBoard,
+        resetBoard,
     };
 })();
 
@@ -175,29 +173,21 @@ const gameStatus = (function () {
         switchPlayer();
     };
 
+    const resetGame = () => {
+        gameBoard.resetBoard();
+        currentPlayer = player1;
+    };
+
     return {
         placeSign,
+        resetGame,
     };
 })();
 
-document.querySelectorAll(".board-cell").forEach((cell) => {
-    cell.addEventListener("click", (e) => {
-        let targetElem;
-        if (e.target.tagName === "P") {
-            targetElem = e.target.parentElement;
-        } else {
-            targetElem = e.target;
-        }
-
-        if (!targetElem.classList.contains("empty")) {
-            return;
-        }
-
-        const index = parseInt(targetElem.getAttribute("aria-label"));
-        const x = parseInt((index - 1) / 3);
-        const y = (index - 1) % 3;
-
-        gameStatus.placeSign(x, y);
-    });
+const resetBtn = document.getElementById("reset-btn");
+resetBtn.addEventListener("click", () => {
+    // for now it will just reset the board, eventually it will reset the scores as well
+    gameStatus.resetGame();
 });
 
+gameBoard.renderBoard();
