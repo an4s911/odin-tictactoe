@@ -45,6 +45,8 @@ main > h1 > :last-child {
     background-color: #045151;
 
     border-radius: var(--radius);
+
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
 }
 
 .board-cell {
