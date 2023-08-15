@@ -107,3 +107,35 @@ main > h1 > :last-child {
 .current-player > p {
     font-size: 1.5em;
 }
+
+.scores {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    font-size: 1rem;
+    border: 4px solid #045151;
+    border-radius: 15px;
+    padding: 15px;
+    background-color: lightcyan;
+}
+
+.scores > h4 {
+    font-family: initial;
+    font-size: 1.3em;
+}
+
+.scores > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.scores h5 {
+    font-family: initial;
+    font-size: 1em;
+}
+
+.scores p {
+    font-size: 1.5em;
+}

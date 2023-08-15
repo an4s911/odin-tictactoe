@@ -158,6 +158,10 @@ const Player = function (name, sign) {
             sign = newSign;
         },
 
+        get score() {
+            return score;
+        },
+
         placeSign,
         incrementScore,
     };
@@ -205,13 +209,27 @@ const gameStatus = (function () {
             setTimeout(() => {
                 alert(`${winningPlayer.name} wins!`);
                 gameBoard.resetBoard();
+                renderScores();
             }, 500);
         }
+    };
+
+    const renderScores = () => {
+        const player1Score = document.querySelector(".scores > .player-1 > p");
+        const player2Score = document.querySelector(".scores > .player-2 > p");
+        player1Score.textContent = player1.score;
+        player2Score.textContent = player2.score;
+    };
+
+    const renderGame = () => {
+        gameBoard.renderBoard();
+        renderScores();
     };
 
     return {
         placeSign,
         resetGame,
+        renderGame,
     };
 })();
 
@@ -221,4 +239,4 @@ resetBtn.addEventListener("click", () => {
     gameStatus.resetGame();
 });
 
-gameBoard.renderBoard();
+gameStatus.renderGame();
