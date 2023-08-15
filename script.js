@@ -89,7 +89,7 @@ const gameBoard = (function () {
                 board[i][1] === sign &&
                 board[i][2] === sign
             ) {
-                return true;
+                return 1;
             }
         }
 
@@ -100,7 +100,7 @@ const gameBoard = (function () {
                 board[1][j] === sign &&
                 board[2][j] === sign
             ) {
-                return true;
+                return 1;
             }
         }
 
@@ -110,18 +110,28 @@ const gameBoard = (function () {
             board[1][1] === sign &&
             board[2][2] === sign
         ) {
-            return true;
+            return 1;
         }
         if (
             board[0][2] === sign &&
             board[1][1] === sign &&
             board[2][0] === sign
         ) {
-            return true;
+            return 1;
         }
 
+        // There are still empty cells
         // No win condition met
-        return false;
+        for (let i = 0; i < board.length; i++) {
+            for (let j = 0; j < board[i].length; j++) {
+                if (board[i][j] === "") {
+                    return 0;
+                }
+            }
+        }
+
+        // Board is full
+        return -1;
     };
 
     return {
@@ -203,13 +213,19 @@ const gameStatus = (function () {
     };
 
     const checkWinAndIncrement = () => {
-        if (gameBoard.checkWin(currentPlayer.sign)) {
+        const winCondition = gameBoard.checkWin(currentPlayer.sign);
+        if (winCondition === 1) {
             currentPlayer.incrementScore();
             const winningPlayer = currentPlayer;
             setTimeout(() => {
                 alert(`${winningPlayer.name} wins!`);
                 gameBoard.resetBoard();
                 renderScores();
+            }, 500);
+        } else if (winCondition === -1) {
+            setTimeout(() => {
+                alert("Draw!");
+                gameBoard.resetBoard();
             }, 500);
         }
     };
