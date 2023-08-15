@@ -7,6 +7,25 @@ const gameBoard = (function () {
 
     const gameBoardElement = document.getElementById("game-board");
 
+    const setClickListener = (event) => {
+        let targetElem;
+        if (event.target.tagName === "P") {
+            targetElem = event.target.parentElement;
+        } else {
+            targetElem = event.target;
+        }
+
+        if (!targetElem.classList.contains("empty")) {
+            return;
+        }
+
+        const index = parseInt(targetElem.id.split("-")[1]);
+        const x = parseInt((index - 1) / 3);
+        const y = (index - 1) % 3;
+
+        gameStatus.placeSign(x, y);
+    };
+
     const makeCell = (num, sign) => {
         const htmlString = `
             <div class="board-cell ${
@@ -19,6 +38,10 @@ const gameBoard = (function () {
         const tempElement = document.createElement("div");
         tempElement.innerHTML = htmlString;
         const cell = tempElement.firstElementChild;
+
+        cell.addEventListener("click", (e) => {
+            setClickListener(e);
+        });
 
         return cell;
     };
