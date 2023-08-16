@@ -143,17 +143,20 @@ const gameBoard = (function () {
 })();
 
 const Player = function (name, sign, number) {
+    let score = 0;
+    const className = ".player-" + name.split(" ")[1];
+
     const placeSign = (x, y) => {
         gameBoard.placeSign(x, y, sign);
     };
-
-    let score = 0;
 
     const incrementScore = () => {
         score++;
     };
 
-    const className = ".player-" + name.split(" ")[1];
+    const resetScore = () => {
+        score = 0;
+    };
 
     return {
         get name() {
@@ -180,6 +183,7 @@ const Player = function (name, sign, number) {
 
         placeSign,
         incrementScore,
+        resetScore,
     };
 };
 
@@ -215,6 +219,9 @@ const gameStatus = (function () {
 
     const resetGame = () => {
         gameBoard.resetBoard();
+        player1.resetScore();
+        player2.resetScore();
+        renderScores();
         setCurrentPlayer(player1);
     };
 
@@ -268,7 +275,6 @@ const gameStatus = (function () {
 
 const resetBtn = document.getElementById("reset-btn");
 resetBtn.addEventListener("click", () => {
-    // for now it will just reset the board, eventually it will reset the scores as well
     gameStatus.resetGame();
 });
 
