@@ -142,7 +142,7 @@ const gameBoard = (function () {
     };
 })();
 
-const Player = function (name, sign) {
+const Player = function (name, sign, number) {
     const placeSign = (x, y) => {
         gameBoard.placeSign(x, y, sign);
     };
@@ -152,6 +152,8 @@ const Player = function (name, sign) {
     const incrementScore = () => {
         score++;
     };
+
+    const className = ".player-" + name.split(" ")[1];
 
     return {
         get name() {
@@ -170,6 +172,10 @@ const Player = function (name, sign) {
 
         get score() {
             return score;
+        },
+
+        get className() {
+            return className;
         },
 
         placeSign,
@@ -242,10 +248,21 @@ const gameStatus = (function () {
         renderScores();
     };
 
+    const updatePlayerName = (player, newName) => {
+        player.name = newName;
+        if (currentPlayer === player) {
+            setCurrentPlayer(player);
+        }
+        document.querySelector(
+            `.scores > ${player.className} > h5`
+        ).textContent = player.name;
+    };
+
     return {
         placeSign,
         resetGame,
         renderGame,
+        updatePlayerName,
     };
 })();
 
@@ -254,5 +271,24 @@ resetBtn.addEventListener("click", () => {
     // for now it will just reset the board, eventually it will reset the scores as well
     gameStatus.resetGame();
 });
+
+// for each of .player-1 and .player-2 when the div.score is clicked, then it should prompt to enter a new name for that player
+for (let i = 0; i < document.querySelectorAll(".score").length; i++) {
+    document.querySelectorAll(".score")[i].addEventListener("click", () => {
+        let playerName = prompt("Enter a name for player " + (i + 1));
+        if (playerName === null) {
+            return;
+        }
+        const playerNumber = document
+            .querySelectorAll(".score")
+            [i].classList[0].split("-")[1];
+
+        if (playerNumber === "1") {
+            gameStatus.updatePlayerName(player1, playerName);
+        } else {
+            gameStatus.updatePlayerName(player2, playerName);
+        }
+    });
+}
 
 gameStatus.renderGame();

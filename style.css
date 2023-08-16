@@ -135,7 +135,7 @@ main > h1 > :last-child {
     font-size: 1rem;
     border: 4px solid #045151;
     border-radius: 15px;
-    padding: 15px;
+    padding: 12px;
     background-color: lightcyan;
 }
 
@@ -148,11 +148,23 @@ main > h1 > :last-child {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    cursor: pointer;
+
+    transition: 350ms;
+
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.scores > .score:hover {
+    background-color: #045151;
+    color: lightcyan;
 }
 
 .scores h5 {
     font-family: initial;
-    font-size: 1em;
+    font-size: 0.9em;
 }
 
 .scores p {
